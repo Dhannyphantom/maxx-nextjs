@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import MeetupList from "../components/meetups/MeetupList";
 
 const DUMMY_MEETUPS = [
@@ -16,7 +17,7 @@ const DUMMY_MEETUPS = [
     description: "This is the second address",
   },
   {
-    id: "m1",
+    id: "m3",
     title: "Third Meetup",
     image: "images/avatarrs.jpg",
     address: "Some address, some city 4323",
@@ -25,5 +26,11 @@ const DUMMY_MEETUPS = [
 ];
 
 export default function HomePage() {
-  return <MeetupList meetups={DUMMY_MEETUPS} />;
+  const [meetupsData, setMeetupsData] = useState([]);
+
+  useEffect(() => {
+    setMeetupsData(DUMMY_MEETUPS);
+  }, []);
+
+  return <MeetupList meetups={meetupsData} />;
 }
