@@ -1,5 +1,28 @@
 import MeetupDetail from "../../components/meetups/MeetupDetail";
 
+export async function getStaticPaths() {
+  return {
+    fallback: false,
+    paths: [
+      {
+        params: {
+          meetupId: "m1",
+        },
+      },
+      {
+        params: {
+          meetupId: "m2",
+        },
+      },
+      {
+        params: {
+          meetupId: "m3",
+        },
+      },
+    ],
+  };
+}
+
 export async function getStaticProps(context) {
   // fetch single data from an API
 
