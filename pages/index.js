@@ -24,15 +24,26 @@ const DUMMY_MEETUPS = [
   },
 ];
 
-export async function getStaticProps() {
-  // fetch some data from API
+// export async function getStaticProps() {
+//   // fetch some data from API
+
+//   return {
+//     props: {
+//       meetupsData: DUMMY_MEETUPS,
+//     },
+//     revalidate: 10, // THIS WILL ALWAYS REGENERATE THIS PAGE EVERY TEN SECS
+//     //              // IN THE SERVER SO LONG REQUESTS ARE COMING IN.
+//   };
+// }
+
+export async function getServerSideProps() {
+  // fetch data from an API
+  // THIS IS ALWAYS GENERATED ON EVERY REQUEST MADE TO THE SERVER
 
   return {
     props: {
       meetupsData: DUMMY_MEETUPS,
     },
-    revalidate: 10, // THIS WILL ALWAYS REGENERATE THIS PAGE EVERY TEN SECS
-    //              // IN THE SERVER SO LONG REQUESTS ARE COMING IN.
   };
 }
 
