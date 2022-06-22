@@ -1,25 +1,24 @@
+import { MongoClient, ObjectId } from "mongodb";
 import MeetupDetail from "../../components/meetups/MeetupDetail";
 
 export async function getStaticPaths() {
+  // fetch some data from an api
+  const client = await MongoClient.connect("mongodb://localhost:27017/meetups");
+  const db = client.db();
+
+  const meetupsCollection = db.collection("meetups");
+  const meetupsData = await meetupsCollection.find({}, { _id: 1 }).toArray();
+
+  client.close();
   return {
     fallback: false,
-    paths: [
-      {
+    paths: meetupsData.map((meetup) => {
+      return {
         params: {
-          meetupId: "m1",
+          meetupId: meetup._id.toString(),
         },
-      },
-      {
-        params: {
-          meetupId: "m2",
-        },
-      },
-      {
-        params: {
-          meetupId: "m3",
-        },
-      },
-    ],
+      };
+    }),
   };
 }
 
@@ -28,26 +27,40 @@ export async function getStaticProps(context) {
 
   const meetupId = context.params.meetupId;
 
+  const client = await MongoClient.connect("mongodb://localhost:27017/meetups");
+  const db = client.db();
+
+  const meetupsCollection = db.collection("meetups");
+  const meetupData = await meetupsCollection.findOne({
+    _id: ObjectId(meetupId),
+  });
+
+  client.close();
+  const sendData = meetupData;
+  sendData.id = meetupData._id.toString();
+  delete sendData._id;
+
   return {
     props: {
-      meetupData: {
-        id: meetupId,
-        title: "First Meetup",
-        address: "Some address",
-        description: "This is some description",
-        image: "/images/avatarrs.jpg",
-      },
+      meetupData: sendData,
     },
   };
 }
 
-export default function MeetupDetailPage() {
+export default function MeetupDetailPage({ meetupData }) {
+  console.log(meetupData);
   return (
     <MeetupDetail
-      title="First Meetup"
-      address="Some address"
-      description="This is some description"
-      image="/images/avatarrs.jpg"
+      title={meetupData.title}
+      address={meetupData.address}
+      description={meetupData.description}
+      image={meetupData.image}
     />
   );
 }
+<MeetupDetail
+  title="Title"
+  address="{meetupData.address}"
+  description="{meetupData.description}"
+  image="/images/avatarrs.jpg"
+/>;
