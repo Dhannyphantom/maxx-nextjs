@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     );
     const db = client.db();
 
-    const meetupsCollection = await db.createCollection("meetups");
+    const meetupsCollection = db.collection("meetups");
 
     const result = await meetupsCollection.insertOne(data);
     console.log(result);
