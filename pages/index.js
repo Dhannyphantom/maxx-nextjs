@@ -1,4 +1,5 @@
 import { MongoClient } from "mongodb";
+import Head from "next/head";
 import MeetupList from "../components/meetups/MeetupList";
 
 export async function getStaticProps() {
@@ -26,5 +27,16 @@ export async function getStaticProps() {
 }
 
 export default function HomePage({ meetupsData }) {
-  return <MeetupList meetups={meetupsData} />;
+  return (
+    <>
+      <Head>
+        <title>React Meetups</title>
+        <meta
+          name="description"
+          content="React Meetups App for Anime Characters "
+        />
+      </Head>
+      <MeetupList meetups={meetupsData} />;
+    </>
+  );
 }

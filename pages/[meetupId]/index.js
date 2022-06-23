@@ -1,4 +1,5 @@
 import { MongoClient, ObjectId } from "mongodb";
+import Head from "next/head";
 import MeetupDetail from "../../components/meetups/MeetupDetail";
 
 export async function getStaticPaths() {
@@ -48,19 +49,26 @@ export async function getStaticProps(context) {
 }
 
 export default function MeetupDetailPage({ meetupData }) {
-  console.log(meetupData);
   return (
-    <MeetupDetail
-      title={meetupData.title}
-      address={meetupData.address}
-      description={meetupData.description}
-      image={meetupData.image}
-    />
+    <>
+      <Head>
+        <title>{meetupData.title}</title>
+        <meta name="description" content={meetupData.description} />
+      </Head>
+      <MeetupDetail
+        title={meetupData.title}
+        address={meetupData.address}
+        description={meetupData.description}
+        image={meetupData.image}
+      />
+    </>
   );
 }
-<MeetupDetail
+{
+  /* <MeetupDetail
   title="Title"
   address="{meetupData.address}"
   description="{meetupData.description}"
   image="/images/avatarrs.jpg"
-/>;
+/>; */
+}
