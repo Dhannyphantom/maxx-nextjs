@@ -36,7 +36,7 @@ export default function HomePage({ meetupsData }) {
           content="React Meetups App for Anime Characters "
         />
       </Head>
-      <MeetupList meetups={meetupsData} />;
+      <MeetupList meetups={meetupsData} />
     </>
   );
 }

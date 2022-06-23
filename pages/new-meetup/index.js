@@ -28,7 +28,7 @@ export default function NewMeetupPage() {
           content="Add a new meetup for your favorite anime characters "
         />
       </Head>
-      <NewMeetupForm onAddMeetup={onAddNewMeetupHandler} />;
+      <NewMeetupForm onAddMeetup={onAddNewMeetupHandler} />
     </>
   );
 }
